@@ -13,7 +13,7 @@ import type {
 	//tSubDesign
 } from 'geometrix';
 import {
-	contour,
+	//contour,
 	contourCircle,
 	figure,
 	//degToRad,
@@ -57,7 +57,7 @@ function pGeom(t: number, param: tParamVal): tGeom {
 		rGeome.logstr += `myCircle-diameter: ${ffix(param.D1)} mm\n`;
 		// step-7 : drawing of the figures
 		// fig1
-		figSection.addMain(contourCircle(0, 0, R1));
+		fig1.addMain(contourCircle(0, 0, R1));
 		// final figure list
 		rGeome.fig = {
 			face1: fig1

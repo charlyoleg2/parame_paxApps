@@ -59,11 +59,11 @@ function pGeom(t: number, param: tParamVal): tGeom {
 		// step-7 : drawing of the figures
 		// fig1
 		const ctrRect = contour(0, 0)
-			.addSegStrikeR(param.W1, 0)
-			.addSegStrikeR(0, param.H1)
-			.addSegStrikeR(-param.W1, 0)
+			.addSegStrokeR(param.W1, 0)
+			.addSegStrokeR(0, param.H1)
+			.addSegStrokeR(-param.W1, 0)
 			.closeSegStroke();
-		figSection.addMain(ctrRect);
+		fig1.addMain(ctrRect);
 		// final figure list
 		rGeome.fig = {
 			face1: fig1

@@ -41,7 +41,7 @@
 		"preview": "run-s desiXY-ui:preview",
 		"versions": "run-s desi01:version",
 		"gh-publish": "run-s desi01:publish",
-		"ls-pkg": "ls -la pkg"
+		"ls-workspaces": "npm -ws exec -c pwd"
 	},
 	"workspaces": [
 		"desi01",

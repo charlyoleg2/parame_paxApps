@@ -4,10 +4,7 @@
 import type { tAllPageDef } from 'geometrix';
 import { geom_cli } from 'geomcli';
 import packag from '../package.json';
-import {
-	myCircleDef,
-	myRectangleDef
-} from 'desi01';
+import { myCircleDef, myRectangleDef } from 'desi01';
 
 const designList: tAllPageDef = {
 	'myGroup1/myCircle': myCircleDef,

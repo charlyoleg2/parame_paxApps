@@ -6,22 +6,26 @@
 	import topPackage from '../../../../package.json';
 
 	const detailed_versions = version_details(desiPackage);
-	const desiNames = strDesiNames(topPackage.libs4paxApps);
+	const desiNames = strDesiNames(topPackage.paxApps.libs);
 </script>
 
-<h1>Welcome to DesiXY-UI for {desiNames}</h1>
-<h6>
-	Display the designs of <a href={topPackage.homepage}>{topPackage.name}</a>
-	powered by the framework
-	<a href="https://github.com/charlyoleg2/parametrix">parametrix</a>.
-</h6>
-<nav>
-	<a href="{base}/">index: list of designs</a>
-</nav>
+<header
+	style="--colorBg1:{topPackage.paxApps.colorBg};--colorTitle:{topPackage.paxApps.colorTitle}"
+>
+	<h1>Welcome to DesiXY-UI for {desiNames}</h1>
+	<h6>
+		Display the designs of <a href={topPackage.homepage}>{topPackage.name}</a>
+		powered by the framework
+		<a href="https://github.com/charlyoleg2/parametrix">parametrix</a>.
+	</h6>
+	<nav>
+		<a href="{base}/">index: list of designs</a>
+	</nav>
+</header>
 <main>
 	<slot />
 </main>
-<footer>
+<footer style="--colorBg2:{topPackage.paxApps.colorBg}">
 	<article>
 		<h3>{topPackage.name}</h3>
 		<code>
@@ -46,10 +50,14 @@
 	:global(body) {
 		font-family: 'Lucida Console', 'Monaco', 'Verdana';
 		margin: 0;
+		padding: 0;
 		background-color: DarkCyan;
 	}
+	header {
+		background-color: var(--colorBg1);
+	}
 	h1 {
-		color: aquamarine;
+		color: var(--colorTitle);
 		margin: 1rem;
 		margin-bottom: 0.2rem;
 	}
@@ -91,5 +99,6 @@
 		margin: 1rem;
 		margin-top: 5rem;
 		margin-bottom: 5rem;
+		background-color: var(--colorBg2);
 	}
 </style>

@@ -18,9 +18,13 @@
 		"gear"
 	],
 	"author": "charlyoleg2",
-	"libs4paxApps": [
-		"desi01"
-	],
+	"paxApps": {
+		"colorBg": "DarkCyan",
+		"colorTitle": "aquamarine",
+		"libs": [
+			"desi01"
+		]
+	},
 	"scripts": {
 		"desi01:dev": "npm -w desi01 run dev",
 		"desi01:ci": "npm -w desi01 run ci",

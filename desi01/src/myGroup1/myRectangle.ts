@@ -1,5 +1,5 @@
-// myPartA.ts
-// tutorial-1 : a simple design (a cylindrical tube) for showcasing the usage of geometrix
+// myRectangle.ts
+// a simple design (just a rectangle) for developing paxApps (desiXY-cli and desiXY-ui)
 
 // step-1 : import from geometrix
 import type {
@@ -14,7 +14,7 @@ import type {
 } from 'geometrix';
 import {
 	contour,
-	contourCircle,
+	//contourCircle,
 	figure,
 	//degToRad,
 	//radToDeg,
@@ -29,20 +29,18 @@ import {
 
 // step-2 : definition of the parameters and more (part-name, svg associated to each parameter, simulation parameters)
 const pDef: tParamDef = {
-	partName: 'myPartA',
+	partName: 'myRectangle',
 	params: [
 		//pNumber(name, unit, init, min, max, step)
-		pNumber('D1', 'mm', 40, 10, 100, 2),
-		pNumber('E1', 'mm', 3, 1, 50, 1),
-		pNumber('L1', 'mm', 50, 10, 200, 10)
+		pNumber('W1', 'mm', 80, 10, 200, 1),
+		pNumber('H1', 'mm', 60, 10, 200, 1)
 	],
 	paramSvg: {
-		D1: 'myPartA_section.svg',
-		E1: 'myPartA_section.svg',
-		L1: 'myPartA_side.svg'
+		W1: 'myRectangle.svg',
+		H1: 'myRectangle.svg'
 	},
 	sim: {
-		tMax: 180,
+		tMax: 100,
 		tStep: 0.5,
 		tUpdate: 500 // every 0.5 second
 	}
@@ -51,41 +49,24 @@ const pDef: tParamDef = {
 // step-3 : definition of the function that creates from the parameter-values the figures and construct the 3D
 function pGeom(t: number, param: tParamVal): tGeom {
 	const rGeome = initGeom(pDef.partName);
-	const figSection = figure();
-	const figSide = figure();
+	const fig1 = figure();
 	rGeome.logstr += `${rGeome.partName} simTime: ${t}\n`;
 	try {
 		// step-4 : some preparation calculation
-		const R1 = param.D1 / 2;
 		// step-5 : checks on the parameter values
-		if (R1 < param.E1) {
-			throw `err089: D1 ${param.D1} too small compare to E1 ${param.E1}`;
-		}
 		// step-6 : any logs
-		rGeome.logstr += `myPartA-length: ${ffix(param.L1)} mm\n`;
-		rGeome.logstr += `myPartA-external-diameter: ${ffix(param.D1)} mm\n`;
-		rGeome.logstr += `myPartA-internal-diameter: ${ffix(param.D1 - 2 * param.E1)} mm\n`;
+		rGeome.logstr += `myRectangle area: ${ffix(param.W1 * param.H1)} mm2\n`;
 		// step-7 : drawing of the figures
-		// figSection
-		figSection.addMain(contourCircle(0, 0, R1));
-		figSection.addMain(contourCircle(0, 0, R1 - param.E1));
-		// figSide
-		const ctrCylinderSideRight = contour(R1, 0)
-			.addSegStrokeA(R1, param.L1)
-			.addSegStrokeA(R1 - param.E1, param.L1)
-			.addSegStrokeA(R1 - param.E1, 0)
+		// fig1
+		const ctrRect = contour(0, 0)
+			.addSegStrikeR(param.W1, 0)
+			.addSegStrikeR(0, param.H1)
+			.addSegStrikeR(-param.W1, 0)
 			.closeSegStroke();
-		const ctrCylinderSideLeft = contour(-R1, 0)
-			.addSegStrokeR(param.E1, 0)
-			.addSegStrokeR(0, param.L1)
-			.addSegStrokeR(-param.E1, 0)
-			.closeSegStroke();
-		figSide.addMain(ctrCylinderSideRight);
-		figSide.addSecond(ctrCylinderSideLeft);
+		figSection.addMain(ctrRect);
 		// final figure list
 		rGeome.fig = {
-			faceSection: figSection,
-			faceSide: figSide
+			face1: fig1
 		};
 		// step-8 : recipes of the 3D construction
 		const designName = rGeome.partName;
@@ -93,9 +74,9 @@ function pGeom(t: number, param: tParamVal): tGeom {
 			extrudes: [
 				{
 					outName: `subpax_${designName}`,
-					face: `${designName}_faceSection`,
+					face: `${designName}_face1`,
 					extrudeMethod: EExtrude.eLinearOrtho,
-					length: param.L1,
+					length: 1,
 					rotate: [0, 0, 0],
 					translate: [0, 0, 0]
 				}
@@ -113,7 +94,7 @@ function pGeom(t: number, param: tParamVal): tGeom {
 		rGeome.sub = {};
 		// step-10 : final log message
 		// finalize
-		rGeome.logstr += 'myPartA drawn successfully!\n';
+		rGeome.logstr += 'myRectangle drawn successfully!\n';
 		rGeome.calcErr = false;
 	} catch (emsg) {
 		rGeome.logstr += emsg as string;
@@ -123,12 +104,12 @@ function pGeom(t: number, param: tParamVal): tGeom {
 }
 
 // step-11 : definiton of the final object that gathers the precedent object and function
-const myPartADef: tPageDef = {
-	pTitle: 'My Part-A',
-	pDescription: 'A simple cylinder for showcasing the usage of geometrix',
+const myRectangleDef: tPageDef = {
+	pTitle: 'My Rectangle',
+	pDescription: 'A simple rectangle for developing paxApps (desiXY-cli and desiXY-ui)',
 	pDef: pDef,
 	pGeom: pGeom
 };
 
 // step-12 : export the final object
-export { myPartADef };
+export { myRectangleDef };

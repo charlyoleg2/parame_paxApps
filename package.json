@@ -1,0 +1,56 @@
+{
+	"name": "parame_paxApps",
+	"version": "0.5.0",
+	"description": "parame_paxApps aims at providing the generic packages desiXY-ui and desiXY-cli for geometrix-design libraries",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
+	},
+	"keywords": [
+		"cad",
+		"programmatic",
+		"2D",
+		"circle",
+		"stroke",
+		"arc",
+		"gear"
+	],
+	"author": "charlyoleg2",
+	"libs4paxApps": [
+		"desi01"
+	],
+	"scripts": {
+		"desi01:dev": "npm -w desi01 run dev",
+		"desi01:ci": "npm -w desi01 run ci",
+		"desi01:svgo": "npm -w desi01 run svgo",
+		"desi01:clean": "npm -w desi01 run clean",
+		"desi01:version": "npm -w desi01 version patch",
+		"desi01:publish": "npm -w desi01 publish --provenance",
+		"desiXY-ui:dev": "npm -w desiXY-ui run dev",
+		"desiXY-ui:ci": "npm -w desiXY-ui run ci",
+		"desiXY-ui:clean": "npm -w desiXY-ui run clean",
+		"desiXY-ui:preview": "npm -w desiXY-ui run preview",
+		"desiXY-cli:ci": "npm -w desiXY-cli run ci",
+		"desiXY-cli:clean": "npm -w desiXY-cli run clean",
+		"dev": "run-p desi01:dev desiXY-ui:dev",
+		"node-patch": "patch -Np1 node_modules/vite/dist/node/index.d.ts ./tmp_fix_vite.patch || echo Pomme",
+		"ci": "run-s node-patch desi01:ci desiXY-ui:ci desiXY-cli:ci",
+		"svgo": "run-s desi01:svgo",
+		"clean-root": "shx rm -fr tmp output output2",
+		"clean": "run-s clean-root desi01:clean desiXY-ui:clean desiXY-cli:clean",
+		"preview": "run-s desiXY-ui:preview",
+		"versions": "run-s desi01:version",
+		"gh-publish": "run-s desi01:publish",
+		"ls-pkg": "ls -la pkg"
+	},
+	"workspaces": [
+		"desi01",
+		"paxApps/*"
+	],
+	"type": "module",
+	"devDependencies": {
+		"npm-run-all": "^4.1.5",
+		"shx": "^0.3.4"
+	}
+}

@@ -29,7 +29,8 @@
 	</article>
 	<article>
 		<h3>desiXY-ui</h3>
-		<a href="https://github.com/charlyoleg2/parame_paxApps">desiXY-ui</a>, the generic User Inteface built with
+		<a href="https://github.com/charlyoleg2/parame_paxApps">desiXY-ui</a>, the generic User
+		Inteface built with
 		<a href="https://www.npmjs.com/package/geometrix">geometrix</a> and
 		<a href="https://www.npmjs.com/package/geomui">geomui</a>.
 		<code>

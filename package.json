@@ -1,6 +1,6 @@
 {
 	"name": "parame_paxApps",
-	"version": "0.5.0",
+	"version": "0.5.3",
 	"description": "parame_paxApps aims at providing the generic packages desiXY-ui and desiXY-cli for geometrix-design libraries",
 	"private": true,
 	"repository": {

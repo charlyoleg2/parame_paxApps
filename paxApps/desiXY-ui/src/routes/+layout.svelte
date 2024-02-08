@@ -9,9 +9,10 @@
 	const desiNames = strDesiNames(topPackage.libs4paxApps);
 </script>
 
-<h1>Welcome to the DesiXY-UI for {desiNames}</h1>
+<h1>Welcome to DesiXY-UI for {desiNames}</h1>
 <h6>
-	Displaying the designs of {topPackage.name} powered by the framework
+	Display the designs of <a href={topPackage.homepage}>{topPackage.name}</a>
+	powered by the framework
 	<a href="https://github.com/charlyoleg2/parametrix">parametrix</a>.
 </h6>
 <nav>
@@ -24,7 +25,7 @@
 	<article>
 		<h3>{topPackage.name}</h3>
 		<code>
-			<a href={topPackage.repository.url}>{topPackage.name}</a> version {topPackage.version}
+			<a href={topPackage.homepage}>{topPackage.name}</a> version {topPackage.version}
 		</code>
 	</article>
 	<article>
@@ -32,7 +33,7 @@
 		<a href="https://github.com/charlyoleg2/parame_paxApps">desiXY-ui</a>, the generic User
 		Inteface built with
 		<a href="https://www.npmjs.com/package/geometrix">geometrix</a> and
-		<a href="https://www.npmjs.com/package/geomui">geomui</a>.
+		<a href="https://www.npmjs.com/package/geomui">geomui</a>.<br />
 		<code>
 			{#each detailed_versions as dversion}
 				{dversion}<br />

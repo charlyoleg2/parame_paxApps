@@ -1,0 +1,55 @@
+{
+	"name": "paxScr",
+	"version": "0.5.1",
+	"description": "The script that generates the binding files for paxApps",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
+	},
+	"homepage": "https://github.com/charlyoleg2/parame_paxApps/tree/main/paxApps/paxScr#readme",
+	"keywords": [
+		"cad",
+		"programmatic",
+		"2D",
+		"circle",
+		"stroke",
+		"arc",
+		"gear"
+	],
+	"author": "charlyoleg",
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc",
+		"pretty": "prettier --check .",
+		"format": "prettier --write .",
+		"lint": "eslint .",
+		"test:unit": "vitest",
+		"test:unit:once": "vitest --run",
+		"test:bats": "bats test/test1.bats",
+		"ci": "run-s build pretty lint test:unit:once test:bats",
+		"run": "dist/genBindings.js",
+		"clean": "shx rm -fr build dist node_modules output"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^6.20.0",
+		"@typescript-eslint/parser": "^6.20.0",
+		"bats": "^1.10.0",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^3.2.5",
+		"shx": "^0.3.4",
+		"typescript": "^5.3.3",
+		"vitest": "^1.2.2"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/genBindings.d.ts",
+			"default": "./dist/genBindings.js"
+		}
+	},
+	"bin": "./dist/genBindings.js",
+	"types": "dist/genBindings.d.ts",
+	"type": "module"
+}

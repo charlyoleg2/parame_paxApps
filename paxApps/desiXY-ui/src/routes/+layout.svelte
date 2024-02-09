@@ -9,9 +9,7 @@
 	const desiNames = strDesiNames(topPackage.paxApps.libs);
 </script>
 
-<header
-	style="--colorBg1:{topPackage.paxApps.colorBg};--colorTitle:{topPackage.paxApps.colorTitle}"
->
+<header>
 	<h1>Welcome to DesiXY-UI for {desiNames}</h1>
 	<h6>
 		Display the designs of <a href={topPackage.homepage}>{topPackage.name}</a>
@@ -25,7 +23,7 @@
 <main>
 	<slot />
 </main>
-<footer style="--colorBg2:{topPackage.paxApps.colorBg}">
+<footer>
 	<article>
 		<h3>{topPackage.name}</h3>
 		<code>
@@ -47,17 +45,16 @@
 </footer>
 
 <style lang="scss">
+	@use '$lib/gen_colors.scss';
+
 	:global(body) {
 		font-family: 'Lucida Console', 'Monaco', 'Verdana';
 		margin: 0;
 		padding: 0;
-		background-color: DarkCyan;
-	}
-	header {
-		background-color: var(--colorBg1);
+		background-color: gen_colors.$colorBg;
 	}
 	h1 {
-		color: var(--colorTitle);
+		color: gen_colors.$colorTitle;
 		margin: 1rem;
 		margin-bottom: 0.2rem;
 	}

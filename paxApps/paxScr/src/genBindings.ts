@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 // genBindings.ts
 
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 import fs from 'fs';
+import packag from '../package.json';
 
 interface tPaxAppConfig {
 	colorBg: string;
@@ -47,7 +50,37 @@ function getPackageJson(jsonPath: string): tPaxAppConfig {
 	return rObj;
 }
 
+async function genBindings_cli(iArgs: string[]) {
+	//const argv = await yargs(hideBin(iArgs))
+	await yargs(hideBin(iArgs))
+		.scriptName('genBindings')
+		.version(packag.version)
+		.usage('Usage: $0 <global-options> command <command-argument>')
+		.example([
+			['$0 --topPackage ../../pachage.json print-config', 'print the paxApps config'],
+			['$0 generate-scss', 'create the scss file for the sveltekit app'],
+			['$0 generate-cli-design-list', 'create the designList.ts for desiXY-cli'],
+			['$0 generate-ui-design-list', 'create the designList.ts for desiXY-ui'],
+			['$0 modify-cli-package', 'modify the package.json of desiXY-cli'],
+			['$0 modify-ui-package', 'modify the package.json of desiXY-ui'],
+			['$0 copy-svg', 'copy the svg for the sveltekit app'],
+			['$0 all', 'does all modifs and copies']
+		])
+		.option('topPackage', {
+			type: 'string',
+			description: 'path to the package.json of Parame',
+			default: '../../package.json'
+		})
+		.command('print-config', 'print the paxApps config of the top package.json', {}, (argv) => {
+			const cfg = getPackageJson(argv.topPackage as string);
+			console.log(cfg);
+		})
+		.demandCommand(1)
+		.help()
+		.strict()
+		.parseAsync();
+}
+
 console.log('genBindings.ts says hello!');
-const cfg = getPackageJson('../../package.json');
-console.log(cfg);
+await genBindings_cli(process.argv);
 console.log('genBindings.ts says bye!');

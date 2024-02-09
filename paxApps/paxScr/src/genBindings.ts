@@ -8,6 +8,11 @@ interface tPaxAppConfig {
 	colorTitle: string;
 	libs: string[];
 }
+interface tTopPackageJson {
+	name: string;
+	version: string;
+	paxApps: tPaxAppConfig;
+}
 
 const k_paxApps = 'paxApps';
 
@@ -27,7 +32,7 @@ function getPackageJson(jsonPath: string): tPaxAppConfig {
 	}
 	try {
 		const fContentStr = fs.readFileSync(jsonPath, 'utf8');
-		const packageJson = JSON.parse(fContentStr);
+		const packageJson = JSON.parse(fContentStr) as tTopPackageJson;
 		if (k_paxApps in packageJson) {
 			rObj = packageJson[k_paxApps];
 		} else {

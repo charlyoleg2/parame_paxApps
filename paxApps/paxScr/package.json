@@ -18,16 +18,27 @@
 		"gear"
 	],
 	"author": "charlyoleg",
+	"tsup": {
+		"entry": [
+			"src/genBindings.ts"
+		],
+		"format": "esm",
+		"splitting": false,
+		"dts": false,
+		"sourcemap": false,
+		"clean": true
+	},
 	"scripts": {
-		"dev": "tsc --watch",
-		"build": "tsc",
+		"dev": "tsup --watch",
+		"build": "tsup",
+		"check": "tsc --noEmit",
 		"pretty": "prettier --check .",
 		"format": "prettier --write .",
 		"lint": "eslint .",
 		"test:unit": "vitest",
 		"test:unit:once": "vitest --run",
 		"test:bats": "bats test/test1.bats",
-		"ci": "run-s build pretty lint test:unit:once test:bats",
+		"ci": "run-s check build pretty lint test:unit:once test:bats",
 		"run": "dist/genBindings.js",
 		"clean": "shx rm -fr build dist node_modules output"
 	},
@@ -40,6 +51,7 @@
 		"npm-run-all": "^4.1.5",
 		"prettier": "^3.2.5",
 		"shx": "^0.3.4",
+		"tsup": "^8.0.1",
 		"typescript": "^5.3.3",
 		"vitest": "^1.2.2"
 	},

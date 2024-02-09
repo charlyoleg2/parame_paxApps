@@ -13,8 +13,8 @@ const k_paxApps = 'paxApps';
 
 function getPackageJson(jsonPath: string): tPaxAppConfig {
 	let rObj: tPaxAppConfig = {
-		colorBg: "DarkCyan",
-		colorTitle: "aquamarine",
+		colorBg: 'DarkCyan',
+		colorTitle: 'aquamarine',
 		libs: []
 	};
 	if (!jsonPath.endsWith('.json')) {
@@ -34,7 +34,7 @@ function getPackageJson(jsonPath: string): tPaxAppConfig {
 			console.log(`err142: JSON ${jsonPath} doesn't have the key '${k_paxApps}'`);
 			process.exit(1);
 		}
-	} catch(err) {
+	} catch (err) {
 		console.log(`err156: error by parsing ${jsonPath}`);
 		console.log(err);
 		process.exit(1);
@@ -46,4 +46,3 @@ console.log('genBindings.ts says hello!');
 const cfg = getPackageJson('../../package.json');
 console.log(cfg);
 console.log('genBindings.ts says bye!');
-

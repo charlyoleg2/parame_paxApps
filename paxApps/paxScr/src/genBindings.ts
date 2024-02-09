@@ -3,8 +3,9 @@
 
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import fs from 'fs';
 import packag from '../package.json';
+import fs from 'fs';
+import path from 'path';
 
 interface tPaxAppConfig {
 	colorBg: string;
@@ -50,6 +51,26 @@ function getPackageJson(jsonPath: string): tPaxAppConfig {
 	return rObj;
 }
 
+function generate_scss(iCfg: tPaxAppConfig) {
+	const fPath = '../desiXY-ui/src/lib/gen_colors.scss';
+	const fStr = `// gen_colors.scss
+$colorBg: ${iCfg.colorBg};
+$colorTitle: ${iCfg.colorTitle};
+`;
+	const dirPath = path.dirname(fPath);
+	if (!fs.existsSync(dirPath)) {
+		console.log(`err334: directory ${dirPath} doesn't exist`);
+		process.exit(1);
+	}
+	try {
+		fs.writeFileSync(fPath, fStr);
+	} catch (err) {
+		console.log(`err356: error by writing file ${fPath}`);
+		console.log(err);
+		process.exit(1);
+	}
+}
+
 async function genBindings_cli(iArgs: string[]) {
 	//const argv = await yargs(hideBin(iArgs))
 	await yargs(hideBin(iArgs))
@@ -75,12 +96,20 @@ async function genBindings_cli(iArgs: string[]) {
 			const cfg = getPackageJson(argv.topPackage as string);
 			console.log(cfg);
 		})
+		.command('generate-scss', 'create the file gen_colors.scss for desiXY-ui', {}, (argv) => {
+			const cfg = getPackageJson(argv.topPackage as string);
+			generate_scss(cfg);
+		})
+		.command('all', 'all preparations for binding desiXY-cli and desiXY-ui', {}, (argv) => {
+			const cfg = getPackageJson(argv.topPackage as string);
+			generate_scss(cfg);
+		})
 		.demandCommand(1)
 		.help()
 		.strict()
 		.parseAsync();
 }
 
-console.log('genBindings.ts says hello!');
+//console.log('genBindings.ts says hello!');
 await genBindings_cli(process.argv);
-console.log('genBindings.ts says bye!');
+//console.log('genBindings.ts says bye!');

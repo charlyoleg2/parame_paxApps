@@ -106,7 +106,7 @@ function generate_designList(libs: string[], lines: string[], oPath: string) {
 import type { tAllPageDef } from 'geometrix';
 `;
 	for (const onelib of libs) {
-		fStr += `import ${onelib} from '${onelib}';\n`;
+		fStr += `import * as ${onelib} from '${onelib}';\n`;
 	}
 	fStr += `
 

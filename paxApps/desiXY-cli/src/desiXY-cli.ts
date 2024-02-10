@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 // desiXY-cli.ts
 
-import type { tAllPageDef } from 'geometrix';
 import { geom_cli } from 'geomcli';
 import packag from '../package.json';
 import { designList } from './designList';

@@ -108,16 +108,9 @@ import type { tAllPageDef } from 'geometrix';
 	for (const onelib of libs) {
 		fStr += `import * as ${onelib} from '${onelib}';\n`;
 	}
-	fStr += `
-
-const designList: tAllPageDef = {
-`;
+	fStr += '\nconst designList: tAllPageDef = {\n';
 	fStr += lines.join(',\n');
-	fStr += `
-};
-
-export { designList };
-`;
+	fStr += '\n};\n\nexport { designList };\n';
 	write_file(oPath, fStr);
 }
 

@@ -39,9 +39,10 @@
 		"test:unit:once": "vitest --run",
 		"test:bats": "bats test/test1.bats",
 		"ci": "run-s check build pretty lint test:unit:once test:bats",
-		"run": "dist/genBindings.js all",
-		"cirun": "run-s ci run",
-		"brun": "run-s build run",
+		"run": "dist/genBindings.js",
+		"runAll": "dist/genBindings.js all",
+		"cirun": "run-s ci runAll",
+		"brun": "run-s build runAll",
 		"clean": "shx rm -fr build dist node_modules output"
 	},
 	"devDependencies": {

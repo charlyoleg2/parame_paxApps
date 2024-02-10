@@ -40,6 +40,8 @@
 		"test:bats": "bats test/test1.bats",
 		"ci": "run-s check build pretty lint test:unit:once test:bats",
 		"run": "dist/genBindings.js all",
+		"cirun": "run-s ci run",
+		"brun": "run-s build run",
 		"clean": "shx rm -fr build dist node_modules output"
 	},
 	"devDependencies": {

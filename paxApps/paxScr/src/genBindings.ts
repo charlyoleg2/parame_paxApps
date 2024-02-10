@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // genBindings.ts
 
+import type { tAllPageDef } from 'geometrix';
+import { checkImpPages } from 'geometrix';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import packag from '../package.json';
@@ -17,6 +19,7 @@ interface tTopPackageJson {
 	version: string;
 	paxApps: tPaxAppConfig;
 }
+type tStrStr = Record<string, string>;
 
 const k_paxApps = 'paxApps';
 
@@ -71,6 +74,29 @@ $colorTitle: ${iCfg.colorTitle};
 	}
 }
 
+async function import_libs(libs: string[]): Promise<tStrStr> {
+	const rObj: tStrStr = {};
+	for (const libName of libs) {
+		try {
+			const pages = (await import(libName)) as tAllPageDef;
+			const [cErr, cMsg] = checkImpPages(pages);
+			if (cErr) {
+				console.log(`err412: error by importing ${libName}`);
+				console.log(cMsg);
+				process.exit(1);
+			}
+			for (const one of Object.keys(pages)) {
+				rObj[`${libName}/${one}`] = `${libName}.${one}`;
+			}
+		} catch (err) {
+			console.log(`err456: error by importing ${libName}`);
+			console.log(err);
+			process.exit(1);
+		}
+	}
+	return rObj;
+}
+
 async function genBindings_cli(iArgs: string[]) {
 	//const argv = await yargs(hideBin(iArgs))
 	await yargs(hideBin(iArgs))
@@ -99,6 +125,11 @@ async function genBindings_cli(iArgs: string[]) {
 		.command('generate-scss', 'create the file gen_colors.scss for desiXY-ui', {}, (argv) => {
 			const cfg = getPackageJson(argv.topPackage as string);
 			generate_scss(cfg);
+		})
+		.command('print-libs', 'print the content of libs', {}, async (argv) => {
+			const cfg = getPackageJson(argv.topPackage as string);
+			const objList = await import_libs(cfg.libs);
+			console.log(objList);
 		})
 		.command('all', 'all preparations for binding desiXY-cli and desiXY-ui', {}, (argv) => {
 			const cfg = getPackageJson(argv.topPackage as string);

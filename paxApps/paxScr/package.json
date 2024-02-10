@@ -66,6 +66,7 @@
 	"types": "dist/genBindings.d.ts",
 	"type": "module",
 	"dependencies": {
+		"geometrix": "^0.5.15",
 		"yargs": "^17.7.2"
 	}
 }

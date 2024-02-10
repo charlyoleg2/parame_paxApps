@@ -19,7 +19,6 @@ interface tTopPackageJson {
 	version: string;
 	paxApps: tPaxAppConfig;
 }
-type tStrStr = Record<string, string>;
 
 const k_paxApps = 'paxApps';
 
@@ -54,19 +53,14 @@ function getPackageJson(jsonPath: string): tPaxAppConfig {
 	return rObj;
 }
 
-function generate_scss(iCfg: tPaxAppConfig) {
-	const fPath = '../desiXY-ui/src/lib/gen_colors.scss';
-	const fStr = `// gen_colors.scss
-$colorBg: ${iCfg.colorBg};
-$colorTitle: ${iCfg.colorTitle};
-`;
+function write_file(fPath: string, fContent: string) {
 	const dirPath = path.dirname(fPath);
 	if (!fs.existsSync(dirPath)) {
 		console.log(`err334: directory ${dirPath} doesn't exist`);
 		process.exit(1);
 	}
 	try {
-		fs.writeFileSync(fPath, fStr);
+		fs.writeFileSync(fPath, fContent);
 	} catch (err) {
 		console.log(`err356: error by writing file ${fPath}`);
 		console.log(err);
@@ -74,8 +68,17 @@ $colorTitle: ${iCfg.colorTitle};
 	}
 }
 
-async function import_libs(libs: string[]): Promise<tStrStr> {
-	const rObj: tStrStr = {};
+function generate_scss(iCfg: tPaxAppConfig) {
+	const fPath = '../desiXY-ui/src/lib/gen_colors.scss';
+	const fStr = `// gen_colors.scss
+$colorBg: ${iCfg.colorBg};
+$colorTitle: ${iCfg.colorTitle};
+`;
+	write_file(fPath, fStr);
+}
+
+async function import_libs(libs: string[]): Promise<string[]> {
+	const rLines: string[] = [];
 	for (const libName of libs) {
 		try {
 			const pages = (await import(libName)) as tAllPageDef;
@@ -86,7 +89,7 @@ async function import_libs(libs: string[]): Promise<tStrStr> {
 				process.exit(1);
 			}
 			for (const one of Object.keys(pages)) {
-				rObj[`${libName}/${one}`] = `${libName}.${one}`;
+				rLines.push(`\t'${libName}/${one}': ${libName}.${one}`);
 			}
 		} catch (err) {
 			console.log(`err456: error by importing ${libName}`);
@@ -94,7 +97,40 @@ async function import_libs(libs: string[]): Promise<tStrStr> {
 			process.exit(1);
 		}
 	}
-	return rObj;
+	return rLines;
+}
+
+function generate_designList(libs: string[], lines: string[], oPath: string) {
+	let fStr = `// designList.ts
+
+import type { tAllPageDef } from 'geometrix';
+`;
+	for (const onelib of libs) {
+		fStr += `import ${onelib} from '${onelib}';\n`;
+	}
+	fStr += `
+
+const designList: tAllPageDef = {
+`;
+	fStr += lines.join(',\n');
+	fStr += `
+};
+
+export { designList };
+`;
+	write_file(oPath, fStr);
+}
+
+async function generate_designList_ui(iCfg: tPaxAppConfig) {
+	const fPath_ui = '../desiXY-ui/src/lib/designList.ts';
+	const lines = await import_libs(iCfg.libs);
+	generate_designList(iCfg.libs, lines, fPath_ui);
+}
+
+async function generate_designList_cli(iCfg: tPaxAppConfig) {
+	const fPath_cli = '../desiXY-cli/src/designList.ts';
+	const lines = await import_libs(iCfg.libs);
+	generate_designList(iCfg.libs, lines, fPath_cli);
 }
 
 async function genBindings_cli(iArgs: string[]) {
@@ -128,13 +164,38 @@ async function genBindings_cli(iArgs: string[]) {
 		})
 		.command('print-libs', 'print the content of libs', {}, async (argv) => {
 			const cfg = getPackageJson(argv.topPackage as string);
-			const objList = await import_libs(cfg.libs);
-			console.log(objList);
+			const lines = await import_libs(cfg.libs);
+			console.log(lines);
 		})
-		.command('all', 'all preparations for binding desiXY-cli and desiXY-ui', {}, (argv) => {
-			const cfg = getPackageJson(argv.topPackage as string);
-			generate_scss(cfg);
-		})
+		.command(
+			'generate-designList-ui',
+			'create the file designList.ts for desiXY-ui',
+			{},
+			async (argv) => {
+				const cfg = getPackageJson(argv.topPackage as string);
+				await generate_designList_ui(cfg);
+			}
+		)
+		.command(
+			'generate-designList-cli',
+			'create the file designList.ts for desiXY-cli',
+			{},
+			async (argv) => {
+				const cfg = getPackageJson(argv.topPackage as string);
+				await generate_designList_cli(cfg);
+			}
+		)
+		.command(
+			'all',
+			'all preparations for binding desiXY-cli and desiXY-ui',
+			{},
+			async (argv) => {
+				const cfg = getPackageJson(argv.topPackage as string);
+				generate_scss(cfg);
+				await generate_designList_ui(cfg);
+				await generate_designList_cli(cfg);
+			}
+		)
 		.demandCommand(1)
 		.help()
 		.strict()

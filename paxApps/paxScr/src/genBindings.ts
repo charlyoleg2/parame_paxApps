@@ -22,35 +22,24 @@ interface tTopPackageJson {
 
 const k_paxApps = 'paxApps';
 
-function getPackageJson(jsonPath: string): tPaxAppConfig {
-	let rObj: tPaxAppConfig = {
-		colorBg: 'DarkCyan',
-		colorTitle: 'aquamarine',
-		libs: []
-	};
-	if (!jsonPath.endsWith('.json')) {
-		console.log(`err129: ${jsonPath} has an unexpected file extension`);
+function read_file(fPath: string, fSuffix: string): string {
+	let rStr = '';
+	if (!fPath.endsWith(fSuffix)) {
+		console.log(`err129: ${fPath} hasn't the expected file extension ${fSuffix}`);
 		process.exit(1);
 	}
-	if (!fs.existsSync(jsonPath)) {
-		console.log(`err134: file ${jsonPath} doesn't exist`);
+	if (!fs.existsSync(fPath)) {
+		console.log(`err134: file ${fPath} doesn't exist`);
 		process.exit(1);
 	}
 	try {
-		const fContentStr = fs.readFileSync(jsonPath, 'utf8');
-		const packageJson = JSON.parse(fContentStr) as tTopPackageJson;
-		if (k_paxApps in packageJson) {
-			rObj = packageJson[k_paxApps];
-		} else {
-			console.log(`err142: JSON ${jsonPath} doesn't have the key '${k_paxApps}'`);
-			process.exit(1);
-		}
+		rStr = fs.readFileSync(fPath, 'utf8');
 	} catch (err) {
-		console.log(`err156: error by parsing ${jsonPath}`);
+		console.log(`err156: error by parsing ${fPath}`);
 		console.log(err);
 		process.exit(1);
 	}
-	return rObj;
+	return rStr;
 }
 
 function write_file(fPath: string, fContent: string) {
@@ -66,6 +55,29 @@ function write_file(fPath: string, fContent: string) {
 		console.log(err);
 		process.exit(1);
 	}
+}
+
+function getPackageJson(jsonPath: string): tPaxAppConfig {
+	let rObj: tPaxAppConfig = {
+		colorBg: 'DarkCyan',
+		colorTitle: 'aquamarine',
+		libs: []
+	};
+	const fContentStr = read_file(jsonPath, '.json');
+	try {
+		const packageJson = JSON.parse(fContentStr) as tTopPackageJson;
+		if (k_paxApps in packageJson) {
+			rObj = packageJson[k_paxApps];
+		} else {
+			console.log(`err142: JSON ${jsonPath} doesn't have the key '${k_paxApps}'`);
+			process.exit(1);
+		}
+	} catch (err) {
+		console.log(`err156: error by parsing ${jsonPath}`);
+		console.log(err);
+		process.exit(1);
+	}
+	return rObj;
 }
 
 function generate_scss(iCfg: tPaxAppConfig) {

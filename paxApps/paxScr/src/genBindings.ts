@@ -9,25 +9,27 @@ import packag from '../package.json';
 import fs from 'fs';
 import path from 'path';
 
+interface tPackageJson {
+	name: string;
+	version: string;
+}
 interface tPaxAppConfig {
 	colorBg: string;
 	colorTitle: string;
 	libs: string[];
 }
-interface tTopPackageJson {
-	name: string;
-	version: string;
+interface tTopPackageJson extends tPackageJson {
 	paxApps: tPaxAppConfig;
 }
 type tDependencies = Record<string, string>;
-interface tDesiPackageJson {
-	name: string;
-	version: string;
+interface tDesiPackageJson extends tPackageJson {
 	dependencies: tDependencies;
 }
 
 const k_paxApps = 'paxApps';
 const k_dependencies = 'dependencies';
+const k_name = 'name';
+const k_version = 'version';
 
 function read_file(fPath: string, fSuffix: string): string {
 	let rStr = '';
@@ -64,7 +66,7 @@ function write_file(fPath: string, fContent: string) {
 	}
 }
 
-function getPackageJson(jsonPath: string): tPaxAppConfig {
+function getTopPackageJson(jsonPath: string): tPaxAppConfig {
 	let rObj: tPaxAppConfig = {
 		colorBg: 'DarkCyan',
 		colorTitle: 'aquamarine',
@@ -151,6 +153,31 @@ async function generate_designList_cli(iCfg: tPaxAppConfig) {
 	generate_designList(iCfg.libs, lines, fPath_cli);
 }
 
+function get_package_version(pkgName: string): string {
+	let rPkgVersion = '0.0.0';
+	const pkgPath = `../../node_modules/${pkgName}/package.json`;
+	const pkgStr = read_file(pkgPath, '.json');
+	try {
+		const packageJson = JSON.parse(pkgStr) as tPackageJson;
+		if (!(k_name in packageJson)) {
+			throw `err120: JSON ${pkgPath} doesn't have the key '${k_name}'`;
+		}
+		const pkgName2 = packageJson[k_name];
+		if (pkgName !== pkgName2) {
+			throw `err121: JSON ${pkgPath} has unexpected name '${pkgName}' versus '${pkgName2}'`;
+		}
+		if (!(k_version in packageJson)) {
+			throw `err122: JSON ${pkgPath} doesn't have the key '${k_version}'`;
+		}
+		rPkgVersion = packageJson[k_version];
+	} catch (err) {
+		console.log(`err116: error by parsing ${pkgPath}`);
+		console.log(err);
+		process.exit(1);
+	}
+	return rPkgVersion;
+}
+
 async function rewrite_packageJson(designLibs: string[], geomLibs: string[], pkgPath: string) {
 	const lines = await import_libs(designLibs);
 	console.log(`info234: Number of found designs: ${lines.length}`);
@@ -158,7 +185,8 @@ async function rewrite_packageJson(designLibs: string[], geomLibs: string[], pkg
 	libs.sort();
 	const updatedDependencies: tDependencies = {};
 	for (const onelib of libs) {
-		updatedDependencies[onelib] = '^0.5.15';
+		const currVersion = get_package_version(onelib);
+		updatedDependencies[onelib] = `^${currVersion}`;
 	}
 	const pkgStr = read_file(pkgPath, '.json');
 	try {
@@ -210,15 +238,15 @@ async function genBindings_cli(iArgs: string[]) {
 			default: '../../package.json'
 		})
 		.command('print-config', 'print the paxApps config of the top package.json', {}, (argv) => {
-			const cfg = getPackageJson(argv.topPackage as string);
+			const cfg = getTopPackageJson(argv.topPackage as string);
 			console.log(cfg);
 		})
 		.command('generate-scss', 'create the file gen_colors.scss for desiXY-ui', {}, (argv) => {
-			const cfg = getPackageJson(argv.topPackage as string);
+			const cfg = getTopPackageJson(argv.topPackage as string);
 			generate_scss(cfg);
 		})
 		.command('print-libs', 'print the content of libs', {}, async (argv) => {
-			const cfg = getPackageJson(argv.topPackage as string);
+			const cfg = getTopPackageJson(argv.topPackage as string);
 			const lines = await import_libs(cfg.libs);
 			console.log(lines);
 		})
@@ -227,7 +255,7 @@ async function genBindings_cli(iArgs: string[]) {
 			'create the file designList.ts for desiXY-ui',
 			{},
 			async (argv) => {
-				const cfg = getPackageJson(argv.topPackage as string);
+				const cfg = getTopPackageJson(argv.topPackage as string);
 				await generate_designList_ui(cfg);
 			}
 		)
@@ -236,7 +264,7 @@ async function genBindings_cli(iArgs: string[]) {
 			'create the file designList.ts for desiXY-cli',
 			{},
 			async (argv) => {
-				const cfg = getPackageJson(argv.topPackage as string);
+				const cfg = getTopPackageJson(argv.topPackage as string);
 				await generate_designList_cli(cfg);
 			}
 		)
@@ -245,7 +273,7 @@ async function genBindings_cli(iArgs: string[]) {
 			'rewrite the file pacakge.json of desiXY-ui for adding dependencies',
 			{},
 			async (argv) => {
-				const cfg = getPackageJson(argv.topPackage as string);
+				const cfg = getTopPackageJson(argv.topPackage as string);
 				await rewrite_packageJson_ui(cfg);
 			}
 		)
@@ -254,7 +282,7 @@ async function genBindings_cli(iArgs: string[]) {
 			'rewrite the file pacakge.json of desiXY-cli for adding dependencies',
 			{},
 			async (argv) => {
-				const cfg = getPackageJson(argv.topPackage as string);
+				const cfg = getTopPackageJson(argv.topPackage as string);
 				await rewrite_packageJson_cli(cfg);
 			}
 		)
@@ -263,7 +291,7 @@ async function genBindings_cli(iArgs: string[]) {
 			'all preparations for binding desiXY-cli and desiXY-ui',
 			{},
 			async (argv) => {
-				const cfg = getPackageJson(argv.topPackage as string);
+				const cfg = getTopPackageJson(argv.topPackage as string);
 				generate_scss(cfg);
 				await generate_designList_ui(cfg);
 				await generate_designList_cli(cfg);

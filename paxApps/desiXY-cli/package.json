@@ -43,7 +43,7 @@
 		"clean": "shx rm -fr build dist node_modules output"
 	},
 	"dependencies": {
-		"desi01": "^0.5.0",
+		"desi01": "^0.5.2",
 		"geomcli": "^0.5.18",
 		"geometrix": "^0.5.15"
 	},

@@ -79,7 +79,13 @@ $colorTitle: ${iCfg.colorTitle};
 
 async function import_libs(libs: string[]): Promise<string[]> {
 	const rLines: string[] = [];
-	for (const libName of libs) {
+	const ulibs = new Set(libs);
+	const lengthDiff = libs.length - ulibs.size;
+	if (lengthDiff !== 0) {
+		console.log(`err412: ${lengthDiff} duplicated in libs list`);
+		process.exit(1);
+	}
+	for (const libName of ulibs) {
 		try {
 			const pages = (await import(libName)) as tAllPageDef;
 			const [cErr, cMsg] = checkImpPages(pages);

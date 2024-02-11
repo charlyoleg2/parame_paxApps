@@ -184,7 +184,7 @@ async function rewrite_packageJson_ui(iCfg: tPaxAppConfig) {
 
 async function rewrite_packageJson_cli(iCfg: tPaxAppConfig) {
 	const fPath_cli = '../desiXY-cli/package.json';
-	const geomlibs = ['geomcli', 'geometrix'];
+	const geomlibs = ['geometrix', 'geomcli'];
 	await rewrite_packageJson(iCfg.libs, geomlibs, fPath_cli);
 }
 

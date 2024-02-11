@@ -19,8 +19,15 @@ interface tTopPackageJson {
 	version: string;
 	paxApps: tPaxAppConfig;
 }
+type tDependencies = Record<string, string>;
+interface tDesiPackageJson {
+	name: string;
+	version: string;
+	dependencies: tDependencies;
+}
 
 const k_paxApps = 'paxApps';
+const k_dependencies = 'dependencies';
 
 function read_file(fPath: string, fSuffix: string): string {
 	let rStr = '';
@@ -144,6 +151,43 @@ async function generate_designList_cli(iCfg: tPaxAppConfig) {
 	generate_designList(iCfg.libs, lines, fPath_cli);
 }
 
+async function rewrite_packageJson(designLibs: string[], geomLibs: string[], pkgPath: string) {
+	const lines = await import_libs(designLibs);
+	console.log(`info234: Number of found designs: ${lines.length}`);
+	const libs = geomLibs.concat(designLibs);
+	libs.sort();
+	const updatedDependencies: tDependencies = {};
+	for (const onelib of libs) {
+		updatedDependencies[onelib] = '^0.5.15';
+	}
+	const pkgStr = read_file(pkgPath, '.json');
+	try {
+		const packageJson = JSON.parse(pkgStr) as tDesiPackageJson;
+		if (!(k_dependencies in packageJson)) {
+			throw `err142: JSON ${pkgPath} doesn't have the key '${k_dependencies}'`;
+		}
+		packageJson[k_dependencies] = updatedDependencies;
+		const pkgStr2 = JSON.stringify(packageJson, null, '\t') + '\n';
+		write_file(pkgPath, pkgStr2);
+	} catch (err) {
+		console.log(`err156: error by parsing ${pkgPath}`);
+		console.log(err);
+		process.exit(1);
+	}
+}
+
+async function rewrite_packageJson_ui(iCfg: tPaxAppConfig) {
+	const fPath_ui = '../desiXY-ui/package.json';
+	const geomlibs = ['geometrix', 'geomui'];
+	await rewrite_packageJson(iCfg.libs, geomlibs, fPath_ui);
+}
+
+async function rewrite_packageJson_cli(iCfg: tPaxAppConfig) {
+	const fPath_cli = '../desiXY-cli/package.json';
+	const geomlibs = ['geomcli', 'geometrix'];
+	await rewrite_packageJson(iCfg.libs, geomlibs, fPath_cli);
+}
+
 async function genBindings_cli(iArgs: string[]) {
 	//const argv = await yargs(hideBin(iArgs))
 	await yargs(hideBin(iArgs))
@@ -197,6 +241,24 @@ async function genBindings_cli(iArgs: string[]) {
 			}
 		)
 		.command(
+			'rewrite-packageJson-ui',
+			'rewrite the file pacakge.json of desiXY-ui for adding dependencies',
+			{},
+			async (argv) => {
+				const cfg = getPackageJson(argv.topPackage as string);
+				await rewrite_packageJson_ui(cfg);
+			}
+		)
+		.command(
+			'rewrite-packageJson-cli',
+			'rewrite the file pacakge.json of desiXY-cli for adding dependencies',
+			{},
+			async (argv) => {
+				const cfg = getPackageJson(argv.topPackage as string);
+				await rewrite_packageJson_cli(cfg);
+			}
+		)
+		.command(
 			'all',
 			'all preparations for binding desiXY-cli and desiXY-ui',
 			{},
@@ -205,6 +267,8 @@ async function genBindings_cli(iArgs: string[]) {
 				generate_scss(cfg);
 				await generate_designList_ui(cfg);
 				await generate_designList_cli(cfg);
+				await rewrite_packageJson_ui(cfg);
+				await rewrite_packageJson_cli(cfg);
 			}
 		)
 		.demandCommand(1)

@@ -48,15 +48,15 @@
 	"devDependencies": {
 		"@types/fs-extra": "^11.0.4",
 		"@types/yargs": "^17.0.32",
-		"@typescript-eslint/eslint-plugin": "^6.20.0",
-		"@typescript-eslint/parser": "^6.20.0",
+		"@typescript-eslint/eslint-plugin": "^6.21.0",
+		"@typescript-eslint/parser": "^6.21.0",
 		"bats": "^1.10.0",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^3.2.5",
 		"shx": "^0.3.4",
-		"tsup": "^8.0.1",
+		"tsup": "^8.0.2",
 		"typescript": "^5.3.3",
 		"vitest": "^1.2.2"
 	},
@@ -71,7 +71,7 @@
 	"type": "module",
 	"dependencies": {
 		"fs-extra": "^11.2.0",
-		"geometrix": "^0.5.15",
+		"geometrix": "^0.5.16",
 		"yargs": "^17.7.2"
 	}
 }

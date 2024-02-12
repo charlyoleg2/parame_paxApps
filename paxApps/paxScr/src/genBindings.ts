@@ -4,6 +4,7 @@
 import type { tAllPageDef } from 'geometrix';
 import { checkImpPages } from 'geometrix';
 import yargs from 'yargs';
+import fse from 'fs-extra';
 import { hideBin } from 'yargs/helpers';
 import packag from '../package.json';
 import fs from 'fs';
@@ -216,6 +217,28 @@ async function rewrite_packageJson_cli(iCfg: tPaxAppConfig) {
 	await rewrite_packageJson(iCfg.libs, geomlibs, fPath_cli);
 }
 
+async function copy_pgdsvg(iCfg: tPaxAppConfig) {
+	const destDir = '../desiXY-ui/static/';
+	if (!fs.existsSync(destDir)) {
+		console.log(`err339: copy destination directory ${destDir} doesn't exist`);
+		process.exit(1);
+	}
+	for (const onelib of iCfg.libs) {
+		const srcDir = `../../node_module/${onelib}/dist/pgdsvg`;
+		if (!fs.existsSync(srcDir)) {
+			console.log(`err338: directory ${srcDir} doesn't exist`);
+			process.exit(1);
+		}
+		try {
+			await fse.copy(srcDir, destDir);
+		} catch (err) {
+			console.log(`err337: error by copying directory ${srcDir} to ${destDir}`);
+			console.log(err);
+			process.exit(1);
+		}
+	}
+}
+
 async function genBindings_cli(iArgs: string[]) {
 	//const argv = await yargs(hideBin(iArgs))
 	await yargs(hideBin(iArgs))
@@ -287,6 +310,15 @@ async function genBindings_cli(iArgs: string[]) {
 			}
 		)
 		.command(
+			'copy-pgdsvg',
+			'copy the svg files of design libraries to desiXY-cli',
+			{},
+			async (argv) => {
+				const cfg = getTopPackageJson(argv.topPackage as string);
+				await copy_pgdsvg(cfg);
+			}
+		)
+		.command(
 			'all',
 			'all preparations for binding desiXY-cli and desiXY-ui',
 			{},
@@ -297,6 +329,7 @@ async function genBindings_cli(iArgs: string[]) {
 				await generate_designList_cli(cfg);
 				await rewrite_packageJson_ui(cfg);
 				await rewrite_packageJson_cli(cfg);
+				await copy_pgdsvg(cfg);
 			}
 		)
 		.demandCommand(1)

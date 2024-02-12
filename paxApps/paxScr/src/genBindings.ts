@@ -32,7 +32,7 @@ const k_dependencies = 'dependencies';
 const k_name = 'name';
 const k_version = 'version';
 
-function read_file(fPath: string, fSuffix: string): string {
+function read_file(fPath: string, fSuffix: string, eMsg = ''): string {
 	let rStr = '';
 	if (!fPath.endsWith(fSuffix)) {
 		console.log(`err129: ${fPath} hasn't the expected file extension ${fSuffix}`);
@@ -40,6 +40,9 @@ function read_file(fPath: string, fSuffix: string): string {
 	}
 	if (!fs.existsSync(fPath)) {
 		console.log(`err134: file ${fPath} doesn't exist`);
+		if (eMsg !== '') {
+			console.log(eMsg);
+		}
 		process.exit(1);
 	}
 	try {
@@ -157,7 +160,8 @@ async function generate_designList_cli(iCfg: tPaxAppConfig) {
 function get_package_version(pkgName: string): string {
 	let rPkgVersion = '0.0.0';
 	const pkgPath = `../../node_modules/${pkgName}/package.json`;
-	const pkgStr = read_file(pkgPath, '.json');
+	const err_msg = `err303: the npm-package '${pkgName}' doesn't seem to be installed. Run: npm install`;
+	const pkgStr = read_file(pkgPath, '.json', err_msg);
 	try {
 		const packageJson = JSON.parse(pkgStr) as tPackageJson;
 		if (!(k_name in packageJson)) {
@@ -218,21 +222,22 @@ async function rewrite_packageJson_cli(iCfg: tPaxAppConfig) {
 }
 
 async function copy_pgdsvg(iCfg: tPaxAppConfig) {
-	const destDir = '../desiXY-ui/static/';
+	const destDir = '../desiXY-ui/static';
+	const destDir2 = `${destDir}/pgdsvg`;
 	if (!fs.existsSync(destDir)) {
 		console.log(`err339: copy destination directory ${destDir} doesn't exist`);
 		process.exit(1);
 	}
 	for (const onelib of iCfg.libs) {
-		const srcDir = `../../node_module/${onelib}/dist/pgdsvg`;
+		const srcDir = `../../node_modules/${onelib}/dist/pgdsvg`;
 		if (!fs.existsSync(srcDir)) {
 			console.log(`err338: directory ${srcDir} doesn't exist`);
 			process.exit(1);
 		}
 		try {
-			await fse.copy(srcDir, destDir);
+			await fse.copy(srcDir, destDir2);
 		} catch (err) {
-			console.log(`err337: error by copying directory ${srcDir} to ${destDir}`);
+			console.log(`err337: error by copying directory ${srcDir} to ${destDir2}`);
 			console.log(err);
 			process.exit(1);
 		}

@@ -259,13 +259,13 @@ async function generate_versionJson(designLibs: string[], geomLibs: string[], pk
 
 async function generate_versionJson_ui(iCfg: tPaxAppConfig) {
 	const fPath_ui = '../desiXY-ui/src/lib/versions.json';
-	const geomlibs = ['geometrix', 'geomui'];
+	const geomlibs = ['geometrix', 'geomui', 'paxScr', 'desiXY-ui'];
 	await generate_versionJson(iCfg.libs, geomlibs, fPath_ui);
 }
 
 async function generate_versionJson_cli(iCfg: tPaxAppConfig) {
 	const fPath_cli = '../desiXY-cli/src/versions.json';
-	const geomlibs = ['geometrix', 'geomcli'];
+	const geomlibs = ['geometrix', 'geomcli', 'paxScr', 'desiXY-cli'];
 	await generate_versionJson(iCfg.libs, geomlibs, fPath_cli);
 }
 

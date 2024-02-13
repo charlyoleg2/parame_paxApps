@@ -4,9 +4,13 @@
 	import { version_details } from 'geometrix';
 	import desiPackage from '../../package.json';
 	import topPackage from '../../../../package.json';
+	import versionJson from '$lib/versions.json';
 
 	const detailed_versions = version_details(desiPackage);
 	const desiNames = strDesiNames(topPackage.paxApps.libs);
+	const versionNames = Object.keys(versionJson);
+	type tVersions = Record<string, string>;
+	const versionJson2 = versionJson as tVersions;
 </script>
 
 <header>
@@ -27,7 +31,10 @@
 	<article>
 		<h3>{topPackage.name}</h3>
 		<code>
-			<a href={topPackage.homepage}>{topPackage.name}</a> version {topPackage.version}
+			<a href={topPackage.homepage}>{topPackage.name}</a> version {topPackage.version}<br />
+			{#each versionNames as oneN}
+				{oneN} : {versionJson2[oneN]}<br />
+			{/each}
 		</code>
 	</article>
 	<article>

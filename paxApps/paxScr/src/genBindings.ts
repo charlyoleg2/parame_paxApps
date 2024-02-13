@@ -269,6 +269,14 @@ async function generate_versionJson_cli(iCfg: tPaxAppConfig) {
 	await generate_versionJson(iCfg.libs, geomlibs, fPath_cli);
 }
 
+function display_message() {
+	const msg = `
+info305: add '/paxApps/' to your '.gitignore' file for ignoring those degit packages
+info306: re-run 'npm install' after degit 'paxApps' for generating the links in the directory 'node_modules'
+`;
+	console.log(msg);
+}
+
 async function genBindings_cli(iArgs: string[]) {
 	//const argv = await yargs(hideBin(iArgs))
 	await yargs(hideBin(iArgs))
@@ -366,6 +374,7 @@ async function genBindings_cli(iArgs: string[]) {
 				await generate_versionJson_cli(cfg);
 			}
 		)
+		.command('display-message', 'display usefull message for the build', {}, display_message)
 		.command(
 			'all',
 			'all preparations for binding desiXY-cli and desiXY-ui',
@@ -380,6 +389,7 @@ async function genBindings_cli(iArgs: string[]) {
 				await copy_pgdsvg(cfg);
 				await generate_versionJson_ui(cfg);
 				await generate_versionJson_cli(cfg);
+				display_message();
 			}
 		)
 		.demandCommand(1)

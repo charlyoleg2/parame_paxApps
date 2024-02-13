@@ -43,7 +43,6 @@
 		"clean": "shx rm -fr build dist node_modules output src/designList.ts src/versions.json"
 	},
 	"dependencies": {
-		"desi01": "^0.5.2",
 		"geomcli": "^0.5.19",
 		"geometrix": "^0.5.16"
 	},

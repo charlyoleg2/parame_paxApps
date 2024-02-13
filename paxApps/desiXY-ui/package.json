@@ -17,7 +17,6 @@
 		"clean": "shx rm -fr .svelte-kit build node_modules static/pgdsvg src/lib/designList.ts src/lib/gen_colors.scss src/lib/versions.json"
 	},
 	"dependencies": {
-		"desi01": "^0.5.2",
 		"geometrix": "^0.5.16",
 		"geomui": "^0.5.18"
 	},

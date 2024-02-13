@@ -5,3 +5,4 @@ build/
 node_modules/
 output/
 /src/designList.ts
+/src/versions.json

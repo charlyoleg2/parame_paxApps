@@ -14,7 +14,7 @@
 		"ci": "run-s build lint check test:unit:once",
 		"format": "prettier --write .",
 		"github-pages-fix": "touch build/.nojekyll",
-		"clean": "shx rm -fr .svelte-kit build node_modules static/pgdsvg src/lib/designList.ts src/lib/gen_colors.scss"
+		"clean": "shx rm -fr .svelte-kit build node_modules static/pgdsvg src/lib/designList.ts src/lib/gen_colors.scss src/lib/versions.json"
 	},
 	"dependencies": {
 		"desi01": "^0.5.2",

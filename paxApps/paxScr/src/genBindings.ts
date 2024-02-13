@@ -244,6 +244,31 @@ async function copy_pgdsvg(iCfg: tPaxAppConfig) {
 	}
 }
 
+async function generate_versionJson(designLibs: string[], geomLibs: string[], pkgPath: string) {
+	const lines = await import_libs(designLibs);
+	console.log(`info234: Number of found designs: ${lines.length}`);
+	const libs = geomLibs.concat(designLibs);
+	const versionJson: tDependencies = {};
+	for (const onelib of libs) {
+		const currVersion = get_package_version(onelib);
+		versionJson[onelib] = `${currVersion}`;
+	}
+	const pkgStr = JSON.stringify(versionJson, null, '\t') + '\n';
+	write_file(pkgPath, pkgStr);
+}
+
+async function generate_versionJson_ui(iCfg: tPaxAppConfig) {
+	const fPath_ui = '../desiXY-ui/src/lib/versions.json';
+	const geomlibs = ['geometrix', 'geomui'];
+	await generate_versionJson(iCfg.libs, geomlibs, fPath_ui);
+}
+
+async function generate_versionJson_cli(iCfg: tPaxAppConfig) {
+	const fPath_cli = '../desiXY-cli/src/versions.json';
+	const geomlibs = ['geometrix', 'geomcli'];
+	await generate_versionJson(iCfg.libs, geomlibs, fPath_cli);
+}
+
 async function genBindings_cli(iArgs: string[]) {
 	//const argv = await yargs(hideBin(iArgs))
 	await yargs(hideBin(iArgs))
@@ -324,6 +349,24 @@ async function genBindings_cli(iArgs: string[]) {
 			}
 		)
 		.command(
+			'generate-versionJson-ui',
+			'generate the json-file with version information for desiXY-ui',
+			{},
+			async (argv) => {
+				const cfg = getTopPackageJson(argv.topPackage as string);
+				await generate_versionJson_ui(cfg);
+			}
+		)
+		.command(
+			'generate-versionJson-cli',
+			'generate the json-file with version information for desiXY-cli',
+			{},
+			async (argv) => {
+				const cfg = getTopPackageJson(argv.topPackage as string);
+				await generate_versionJson_cli(cfg);
+			}
+		)
+		.command(
 			'all',
 			'all preparations for binding desiXY-cli and desiXY-ui',
 			{},
@@ -335,6 +378,8 @@ async function genBindings_cli(iArgs: string[]) {
 				await rewrite_packageJson_ui(cfg);
 				await rewrite_packageJson_cli(cfg);
 				await copy_pgdsvg(cfg);
+				await generate_versionJson_ui(cfg);
+				await generate_versionJson_cli(cfg);
 			}
 		)
 		.demandCommand(1)

@@ -1,6 +1,6 @@
 {
 	"name": "paxScr",
-	"version": "0.5.1",
+	"version": "0.5.2",
 	"description": "The script that generates the binding files for paxApps",
 	"private": true,
 	"repository": {

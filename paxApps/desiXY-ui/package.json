@@ -2,6 +2,21 @@
 	"name": "desiXY-ui",
 	"version": "0.5.2",
 	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
+	},
+	"homepage": "https://charlyoleg2.github.io/parame_paxApps/",
+	"keywords": [
+		"cad",
+		"programmatic",
+		"2D",
+		"circle",
+		"stroke",
+		"arc",
+		"gear"
+	],
+	"author": "charlyoleg",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

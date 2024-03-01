@@ -31,7 +31,7 @@
 	<article>
 		<h3>{topPackage.name}</h3>
 		<code>
-			<a href={topPackage.homepage}>{topPackage.name}</a> version {topPackage.version}<br />
+			<a href={topPackage.repository.url}>{topPackage.name}</a> version {topPackage.version}<br />
 			{#each versionNames as oneN}
 				{oneN} : {versionJson2[oneN]}<br />
 			{/each}

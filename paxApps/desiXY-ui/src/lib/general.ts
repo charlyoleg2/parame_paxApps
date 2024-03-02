@@ -5,4 +5,12 @@ function strDesiNames(libNames: string[]): string {
 	return rStr;
 }
 
-export { strDesiNames };
+function repoToHomepage(repo: string): string {
+	let rHomepage = repo;
+	const re1 = /^git\+/;
+	const re2 = /\.git$/;
+	rHomepage = rHomepage.replace(re1, '').replace(re2, '');
+	return rHomepage;
+}
+
+export { strDesiNames, repoToHomepage };

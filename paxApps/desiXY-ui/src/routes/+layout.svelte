@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { strDesiNames } from '$lib/general';
+	import { strDesiNames, repoToHomepage } from '$lib/general';
 	import { base } from '$app/paths';
 	import { version_details } from 'geometrix';
 	import desiPackage from '../../package.json';
@@ -31,7 +31,7 @@
 	<article>
 		<h3>{topPackage.name}</h3>
 		<code>
-			<a href={topPackage.paxApps.homepage2}>{topPackage.name}</a> version {topPackage.version}<br
+			<a href={repoToHomepage(topPackage.repository.url)}>{topPackage.name}</a> version {topPackage.version}<br
 			/>
 			{#each versionNames as oneN}
 				{oneN} : {versionJson2[oneN]}<br />

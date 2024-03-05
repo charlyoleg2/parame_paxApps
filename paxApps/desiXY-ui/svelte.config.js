@@ -23,7 +23,8 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: dev ? '' : `/${basePath}`
+			base: dev ? '' : `/${basePath}`,
+			relative: false
 		}
 	}
 };

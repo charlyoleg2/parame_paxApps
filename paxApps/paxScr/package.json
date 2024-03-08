@@ -71,7 +71,7 @@
 	"type": "module",
 	"dependencies": {
 		"fs-extra": "^11.2.0",
-		"geometrix": "^0.5.23",
+		"geometrix": "^0.5.24",
 		"yargs": "^17.7.2"
 	}
 }

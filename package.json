@@ -45,6 +45,7 @@
 		"desiXY-cli:clean": "npm -w desiXY-cli run clean",
 		"desiXY-cli:version": "npm -w desiXY-cli version patch",
 		"desiXY-uis:ci": "npm -w desiXY-uis run ci",
+		"desiXY-uis:run": "npm -w desiXY-uis run run",
 		"desiXY-uis:clean": "npm -w desiXY-uis run clean",
 		"desiXY-uis:version": "npm -w desiXY-uis version patch",
 		"dev": "run-p desi01:dev desiXY-ui:dev",
@@ -53,6 +54,7 @@
 		"clean-root": "shx rm -fr tmp output output2",
 		"clean": "run-s clean-root desi01:clean paxScr:clean desiXY-ui:clean desiXY-cli:clean desiXY-uis:clean",
 		"preview": "run-s desiXY-ui:preview",
+		"run-uis": "run-s desiXY-uis:run",
 		"versions": "run-s desi01:version paxScr:version desiXY-cli:version desiXY-ui:version desiXY-uis:version",
 		"gh-publish": "run-s desi01:publish",
 		"ls-workspaces": "npm -ws exec -c pwd"

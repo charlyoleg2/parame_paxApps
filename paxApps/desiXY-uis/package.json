@@ -1,0 +1,97 @@
+{
+	"name": "desiXY-uis",
+	"version": "0.5.9",
+	"description": "mini-server for static content of desiXY-ui",
+	"type": "module",
+	"private": true,
+	"main": "./dist/desiXY-uis.js",
+	"types": "./dist/desXY-uis.d.ts",
+	"bin": {
+		"desiXY-uis": "dist/desiXY-uis.js"
+	},
+	"files": [
+		"dist/",
+		"!dist/**/*.map",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"engines": {
+		"node": ">=20.10.0"
+	},
+	"tsup": {
+		"entry": [
+			"src/desiXY-uis.ts"
+		],
+		"format": "esm",
+		"splitting": false,
+		"dts": true,
+		"sourcemap": true,
+		"clean": true
+	},
+	"scripts": {
+		"dev": "tsup --watch",
+		"build": "tsup",
+		"check": "tsc --noEmit",
+		"pretty": "prettier --check .",
+		"format": "prettier --write .",
+		"lint": "eslint .",
+		"test:unit": "vitest",
+		"test:unit:once": "vitest --run",
+		"clean_public": "shx rm -fr dist/public",
+		"copy": "shx cp -r ../desiXY-ui/build dist/public",
+		"checkCopy": "ls -l dist/public/index.html",
+		"ci": "run-s check build pretty lint test:unit:once clean_public copy checkCopy",
+		"run": "node dist/desiXY-uis.js",
+		"run-help": "node dist/desiXY-uis.js --help",
+		"clean": "shx rm -fr node_modules build dist tmp"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
+	},
+	"homepage": "https://charlyoleg2.github.io/parame_paxApps/",
+	"keywords": [
+		"cad",
+		"programmatic",
+		"2D",
+		"circle",
+		"stroke",
+		"arc",
+		"gear",
+		"ui"
+	],
+	"author": "charlyoleg",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/charlyoleg2/parame_paxApps/issues"
+	},
+	"dependencies": {
+		"express": "^4.19.2",
+		"fs-extra": "^11.2.0",
+		"get-port": "^7.1.0",
+		"open": "^10.1.0",
+		"yargs": "^17.7.2"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.21",
+		"@types/fs-extra": "^11.0.4",
+		"@types/node": "^20.11.30",
+		"@types/yargs": "^17.0.32",
+		"eslint": "^8.57.0",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^3.2.5",
+		"shx": "^0.3.4",
+		"tsup": "^8.0.2",
+		"typescript": "^5.4.3",
+		"typescript-eslint": "^7.4.0",
+		"vitest": "^1.4.0"
+	},
+	"prettier": {
+		"useTabs": true,
+		"singleQuote": true,
+		"trailingComma": "none",
+		"printWidth": 100,
+		"plugins": [],
+		"overrides": []
+	}
+}

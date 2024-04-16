@@ -120,7 +120,8 @@ async function import_libs(libs: string[]): Promise<string[]> {
 				process.exit(1);
 			}
 			for (const one of Object.keys(pages)) {
-				rLines.push(`\t'${libName}/${one}': ${libName}.${one}`);
+				const partName = pages[one].pDef.partName;
+				rLines.push(`\t'${libName}/${partName}': ${libName}.${one}`);
 			}
 		} catch (err) {
 			console.log(`err456: error by importing ${libName}`);
@@ -331,7 +332,7 @@ async function genBindings_cli(iArgs: string[]) {
 		)
 		.command(
 			'rewrite-packageJson-ui',
-			'rewrite the file pacakge.json of desiXY-ui for adding dependencies',
+			'rewrite the file package.json of desiXY-ui for adding dependencies',
 			{},
 			async (argv) => {
 				const cfg = getTopPackageJson(argv.topPackage as string);
@@ -340,7 +341,7 @@ async function genBindings_cli(iArgs: string[]) {
 		)
 		.command(
 			'rewrite-packageJson-cli',
-			'rewrite the file pacakge.json of desiXY-cli for adding dependencies',
+			'rewrite the file package.json of desiXY-cli for adding dependencies',
 			{},
 			async (argv) => {
 				const cfg = getTopPackageJson(argv.topPackage as string);

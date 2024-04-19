@@ -10,9 +10,7 @@
 			"default": "./dist/desiXY-uis.js"
 		}
 	},
-	"bin": {
-		"desiXY-uis": "dist/desiXY-uis.js"
-	},
+	"bin": "dist/desiXY-uis.js",
 	"files": [
 		"dist/",
 		"!dist/**/*.map",

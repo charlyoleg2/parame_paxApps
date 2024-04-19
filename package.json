@@ -3,6 +3,7 @@
 	"version": "0.5.4",
 	"description": "parame_paxApps aims at providing the generic packages desiXY-ui and desiXY-cli for geometrix-design libraries",
 	"private": true,
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
@@ -18,6 +19,10 @@
 		"gear"
 	],
 	"author": "charlyoleg2",
+	"workspaces": [
+		"desi01",
+		"paxApps/*"
+	],
 	"paxApps": {
 		"colorBg": "DarkCyan",
 		"colorTitle": "aquamarine",
@@ -59,11 +64,6 @@
 		"gh-publish": "run-s desi01:publish",
 		"ls-workspaces": "npm -ws exec -c pwd"
 	},
-	"workspaces": [
-		"desi01",
-		"paxApps/*"
-	],
-	"type": "module",
 	"devDependencies": {
 		"npm-run-all": "^4.1.5",
 		"shx": "^0.3.4"

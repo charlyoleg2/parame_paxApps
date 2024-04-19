@@ -2,10 +2,14 @@
 	"name": "desiXY-uis",
 	"version": "0.5.9",
 	"description": "mini-server for static content of desiXY-ui",
-	"type": "module",
 	"private": true,
-	"main": "./dist/desiXY-uis.js",
-	"types": "./dist/desXY-uis.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/desiXY-uis.d.ts",
+			"default": "./dist/desiXY-uis.js"
+		}
+	},
 	"bin": {
 		"desiXY-uis": "dist/desiXY-uis.js"
 	},
@@ -17,33 +21,6 @@
 	],
 	"engines": {
 		"node": ">=20.10.0"
-	},
-	"tsup": {
-		"entry": [
-			"src/desiXY-uis.ts"
-		],
-		"format": "esm",
-		"splitting": false,
-		"dts": true,
-		"sourcemap": true,
-		"clean": true
-	},
-	"scripts": {
-		"dev": "tsup --watch",
-		"build": "tsup",
-		"check": "tsc --noEmit",
-		"pretty": "prettier --check .",
-		"format": "prettier --write .",
-		"lint": "eslint .",
-		"test:unit": "vitest",
-		"test:unit:once": "vitest --run",
-		"clean_public": "shx rm -fr dist/public",
-		"copy": "shx cp -r ../desiXY-ui/build dist/public",
-		"checkCopy": "ls -l dist/public/index.html",
-		"ci": "run-s check build pretty lint test:unit:once clean_public copy checkCopy",
-		"run": "node dist/desiXY-uis.js",
-		"run-help": "node dist/desiXY-uis.js --help",
-		"clean": "shx rm -fr node_modules build dist tmp"
 	},
 	"repository": {
 		"type": "git",
@@ -65,6 +42,41 @@
 	"bugs": {
 		"url": "https://github.com/charlyoleg2/parame_paxApps/issues"
 	},
+	"tsup": {
+		"entry": [
+			"src/desiXY-uis.ts"
+		],
+		"format": "esm",
+		"splitting": false,
+		"dts": true,
+		"sourcemap": true,
+		"clean": true
+	},
+	"prettier": {
+		"useTabs": true,
+		"singleQuote": true,
+		"trailingComma": "none",
+		"printWidth": 100,
+		"plugins": [],
+		"overrides": []
+	},
+	"scripts": {
+		"dev": "tsup --watch",
+		"build": "tsup",
+		"check": "tsc --noEmit",
+		"pretty": "prettier --check .",
+		"format": "prettier --write .",
+		"lint": "eslint .",
+		"test:unit": "vitest",
+		"test:unit:once": "vitest --run",
+		"clean_public": "shx rm -fr dist/public",
+		"copy": "shx cp -r ../desiXY-ui/build dist/public",
+		"checkCopy": "ls -l dist/public/index.html",
+		"ci": "run-s check build pretty lint test:unit:once clean_public copy checkCopy",
+		"run": "node dist/desiXY-uis.js",
+		"run-help": "node dist/desiXY-uis.js --help",
+		"clean": "shx rm -fr node_modules build dist tmp"
+	},
 	"dependencies": {
 		"express": "^4.19.2",
 		"fs-extra": "^11.2.0",
@@ -85,13 +97,5 @@
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^7.7.0",
 		"vitest": "^1.5.0"
-	},
-	"prettier": {
-		"useTabs": true,
-		"singleQuote": true,
-		"trailingComma": "none",
-		"printWidth": 100,
-		"plugins": [],
-		"overrides": []
 	}
 }

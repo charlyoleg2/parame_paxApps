@@ -49,7 +49,7 @@
 		"desiXY-ui:version": "npm -w desiXY-ui version patch",
 		"desiXY-cli:ci": "npm -w desiXY-cli run ci",
 		"desiXY-cli:build": "npm -w desi78-cli run build",
-		"desiXY-cli:run": "npm -w desiXY-cli run ci",
+		"desiXY-cli:run": "npm -w desiXY-cli run run",
 		"desiXY-cli:clean": "npm -w desiXY-cli run clean",
 		"desiXY-cli:version": "npm -w desiXY-cli version patch",
 		"desiXY-uis:ci": "npm -w desiXY-uis run ci",

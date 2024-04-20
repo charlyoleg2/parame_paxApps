@@ -284,7 +284,7 @@ function getPackageName(pkgPath: string): string {
 
 async function generate_versionJson_cli(iCfg: tPaxAppConfig) {
 	const fPath_cli = '../desiXY-cli/src/versions.json';
-	const desiXYcli_pkgName = await getPackageName('../desiXY-cli/package.json');
+	const desiXYcli_pkgName = getPackageName('../desiXY-cli/package.json');
 	const geomlibs = ['geometrix', 'geomcli', 'paxScr', desiXYcli_pkgName];
 	await generate_versionJson(iCfg.libs, geomlibs, fPath_cli);
 }

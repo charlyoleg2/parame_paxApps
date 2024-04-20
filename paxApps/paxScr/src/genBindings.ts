@@ -264,9 +264,28 @@ async function generate_versionJson_ui(iCfg: tPaxAppConfig) {
 	await generate_versionJson(iCfg.libs, geomlibs, fPath_ui);
 }
 
+function getPackageName(pkgPath: string): string {
+	let rPkgName = '';
+	const err_msg = `err268: error while reading the package.json of '${pkgPath}'`;
+	const pkgStr = read_file(pkgPath, '.json', err_msg);
+	try {
+		const packageJson = JSON.parse(pkgStr) as tPackageJson;
+		if (!(k_name in packageJson)) {
+			throw `err273: JSON ${pkgPath} doesn't have the key '${k_name}'`;
+		}
+		rPkgName = packageJson[k_name];
+	} catch (err) {
+		console.log(`err278: error by parsing ${pkgPath}`);
+		console.log(err);
+		process.exit(1);
+	}
+	return rPkgName;
+}
+
 async function generate_versionJson_cli(iCfg: tPaxAppConfig) {
 	const fPath_cli = '../desiXY-cli/src/versions.json';
-	const geomlibs = ['geometrix', 'geomcli', 'paxScr', 'desiXY-cli'];
+	const desiXYcli_pkgName = await getPackageName('../desiXY-cli/package.json');
+	const geomlibs = ['geometrix', 'geomcli', 'paxScr', desiXYcli_pkgName];
 	await generate_versionJson(iCfg.libs, geomlibs, fPath_cli);
 }
 

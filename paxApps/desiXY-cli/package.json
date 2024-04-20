@@ -11,6 +11,13 @@
 		}
 	},
 	"bin": "./dist/desiXY-cli.js",
+	"files": [
+		"dist/",
+		"!dist/**/*.d.ts",
+		"!dist/**/*.map",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"

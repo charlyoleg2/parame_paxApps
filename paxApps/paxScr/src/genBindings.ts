@@ -291,7 +291,7 @@ async function genBindings_cli(iArgs: string[]) {
 			['$0 generate-ui-design-list', 'create the designList.ts for desiXY-ui'],
 			['$0 modify-cli-package', 'modify the package.json of desiXY-cli'],
 			['$0 modify-ui-package', 'modify the package.json of desiXY-ui'],
-			['$0 copy-svg', 'copy the svg for the sveltekit app'],
+			['$0 copy-pgdsvg', 'copy the svg for the sveltekit app'],
 			['$0 all', 'does all modifs and copies']
 		])
 		.option('topPackage', {
@@ -350,7 +350,7 @@ async function genBindings_cli(iArgs: string[]) {
 		)
 		.command(
 			'copy-pgdsvg',
-			'copy the svg files of design libraries to desiXY-cli',
+			'copy the svg files of design libraries to desiXY-ui',
 			{},
 			async (argv) => {
 				const cfg = getTopPackageJson(argv.topPackage as string);

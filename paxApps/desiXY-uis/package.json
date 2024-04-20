@@ -68,9 +68,10 @@
 		"test:unit": "vitest",
 		"test:unit:once": "vitest --run",
 		"clean_public": "shx rm -fr dist/public",
-		"copy": "shx cp -r ../desiXY-ui/build dist/public",
+		"copy_ui": "shx cp -r ../desiXY-ui/build dist/public",
 		"checkCopy": "ls -l dist/public/index.html",
-		"ci": "run-s check build pretty lint test:unit:once clean_public copy checkCopy",
+		"copy_public": "run-s clean_public copy_ui checkCopy",
+		"ci": "run-s check build pretty lint test:unit:once copy_public",
 		"run": "node dist/desiXY-uis.js",
 		"run-help": "node dist/desiXY-uis.js --help",
 		"clean": "shx rm -fr node_modules build dist tmp"

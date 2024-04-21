@@ -1,13 +1,13 @@
 {
 	"name": "parame_paxApps",
-	"version": "0.5.4",
 	"description": "parame_paxApps aims at providing the generic packages desiXY-ui and desiXY-cli for geometrix-design libraries",
+	"version": "0.5.4",
 	"private": true,
-	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
 	},
+	"type": "module",
 	"homepage": "https://charlyoleg2.github.io/parame_paxApps/",
 	"keywords": [
 		"cad",

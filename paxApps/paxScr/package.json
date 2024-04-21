@@ -1,8 +1,12 @@
 {
 	"name": "paxScr",
-	"version": "0.5.2",
 	"description": "The script that generates the binding files for paxApps",
+	"version": "0.5.2",
 	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
+	},
 	"type": "module",
 	"exports": {
 		".": {
@@ -11,10 +15,6 @@
 		}
 	},
 	"bin": "./dist/genBindings.js",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
-	},
 	"homepage": "https://github.com/charlyoleg2/parame_paxApps/tree/main/paxApps/paxScr#readme",
 	"keywords": [
 		"cad",

@@ -1,8 +1,12 @@
 {
 	"name": "desi01",
-	"version": "0.5.3",
 	"description": "A dummy geometrix-design-library for testing desiXY-ui and desiXY-cli",
+	"version": "0.5.3",
 	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
+	},
 	"type": "module",
 	"exports": {
 		".": {
@@ -16,10 +20,6 @@
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
-	},
 	"homepage": "https://charlyoleg2.github.io/parame_paxApps/",
 	"keywords": [
 		"cad",

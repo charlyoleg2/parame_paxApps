@@ -1,13 +1,13 @@
 {
 	"name": "desiXY-ui",
-	"version": "0.5.2",
 	"description": "sveltekit-ui for desiXY",
+	"version": "0.5.2",
 	"private": true,
-	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
 	},
+	"type": "module",
 	"homepage": "https://charlyoleg2.github.io/parame_paxApps/",
 	"keywords": [
 		"cad",

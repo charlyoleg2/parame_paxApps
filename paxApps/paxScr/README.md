@@ -20,7 +20,7 @@ Getting started
 git clone https://github.com/charlyoleg2/parame_paxApps
 cd parame_paxApps/paxApps/paxScr
 npm install
-npm ci
+npm run ci
 npm run run
 ```
 

@@ -1,4 +1,4 @@
-desiXI-cli
+desiXY-cli
 ==========
 
 
@@ -15,7 +15,7 @@ Getting started
 git clone https://github.com/charlyoleg2/parame_paxApps
 cd parame_paxApps
 npm install
-npm ci
+npm run ci
 npm -w desiXY-cli run run
 ```
 

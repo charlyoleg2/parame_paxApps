@@ -14,7 +14,7 @@
 </script>
 
 <header>
-	<h1>Welcome to DesiXY-UI for {desiNames}</h1>
+	<h1>Welcome to DesiXY-UI of {desiNames}</h1>
 	<h6>
 		Display the designs of <a href={topPackage.homepage}>{topPackage.name}</a>
 		powered by the framework

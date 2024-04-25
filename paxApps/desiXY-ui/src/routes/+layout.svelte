@@ -18,7 +18,7 @@
 	<h6>
 		Display the designs of <a href={topPackage.homepage}>{topPackage.name}</a>
 		powered by the framework
-		<a href="https://github.com/charlyoleg2/parametrix">parametrix</a>.
+		<a href="https://charlyoleg2.github.io/parametrix/">parametrix</a>.
 	</h6>
 	<nav>
 		<a href="{base}/">index: list of designs</a>

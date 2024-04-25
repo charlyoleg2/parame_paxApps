@@ -7,6 +7,19 @@
 		"type": "git",
 		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
 	},
+	"homepage": "https://charlyoleg2.github.io/parame_paxApps/",
+	"author": "charlyoleg",
+	"license": "ISC",
+	"keywords": [
+		"cad",
+		"programmatic",
+		"2D",
+		"circle",
+		"stroke",
+		"arc",
+		"gear",
+		"ui"
+	],
 	"type": "module",
 	"exports": {
 		".": {
@@ -24,22 +37,6 @@
 	],
 	"engines": {
 		"node": ">=20.10.0"
-	},
-	"homepage": "https://charlyoleg2.github.io/parame_paxApps/",
-	"keywords": [
-		"cad",
-		"programmatic",
-		"2D",
-		"circle",
-		"stroke",
-		"arc",
-		"gear",
-		"ui"
-	],
-	"author": "charlyoleg",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/charlyoleg2/parame_paxApps/issues"
 	},
 	"tsup": {
 		"entry": [

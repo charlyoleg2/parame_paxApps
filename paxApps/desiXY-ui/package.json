@@ -7,8 +7,9 @@
 		"type": "git",
 		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
 	},
-	"type": "module",
 	"homepage": "https://charlyoleg2.github.io/parame_paxApps/",
+	"author": "charlyoleg",
+	"license": "ISC",
 	"keywords": [
 		"cad",
 		"programmatic",
@@ -18,7 +19,7 @@
 		"arc",
 		"gear"
 	],
-	"author": "charlyoleg",
+	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

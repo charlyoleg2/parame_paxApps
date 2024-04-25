@@ -7,15 +7,9 @@
 		"type": "git",
 		"url": "git+https://github.com/charlyoleg2/parame_paxApps.git"
 	},
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/genBindings.d.ts",
-			"default": "./dist/genBindings.js"
-		}
-	},
-	"bin": "./dist/genBindings.js",
 	"homepage": "https://github.com/charlyoleg2/parame_paxApps/tree/main/paxApps/paxScr#readme",
+	"author": "charlyoleg",
+	"license": "ISC",
 	"keywords": [
 		"cad",
 		"programmatic",
@@ -25,7 +19,14 @@
 		"arc",
 		"gear"
 	],
-	"author": "charlyoleg",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/genBindings.d.ts",
+			"default": "./dist/genBindings.js"
+		}
+	},
+	"bin": "./dist/genBindings.js",
 	"tsup": {
 		"entry": [
 			"src/genBindings.ts"

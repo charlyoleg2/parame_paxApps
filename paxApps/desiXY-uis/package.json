@@ -1,6 +1,6 @@
 {
 	"name": "desiXY-uis",
-	"description": "mini-server for static content of desiXY-ui",
+	"description": "mini-server for the desiXY-ui",
 	"version": "0.5.9",
 	"private": true,
 	"repository": {

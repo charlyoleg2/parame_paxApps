@@ -1,6 +1,6 @@
 {
 	"name": "desiXY-cli",
-	"description": "The generic cli as frontend of geometrix-design-library",
+	"description": "The cli-frontend for desiXY",
 	"version": "0.5.2",
 	"private": true,
 	"repository": {

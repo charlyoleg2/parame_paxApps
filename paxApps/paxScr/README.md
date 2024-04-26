@@ -1,10 +1,11 @@
-genBindings
-===========
+paxScr
+======
 
 
 Presentation
 ------------
 
+The npm-package *paxScr* contains essentially the script *genBindings.ts*
 *genBindings* generates the files for binding the *pax application* (i.e. desiXY-cli and desiXY-ui) to the selected *geometrix design libraries*.
 
 *genBindings* reads the package.json, search for the key *paxApps* and generates the files:

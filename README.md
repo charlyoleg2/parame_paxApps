@@ -17,6 +17,13 @@ A public instance of *desiXY-ui* is available on that [github-page](https://char
 The *code source* is available on [github](https://github.com/charlyoleg2/parame_paxApps).
 
 
+Links
+-----
+
+- [desi01-ui](https://charlyoleg2.github.io/parame_paxApps/) : public instance of the UI
+- [sources](https://github.com/charlyoleg2/parame_paxApps) : git-repository
+
+
 Packages details
 ----------------
 

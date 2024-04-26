@@ -1,38 +1,44 @@
-# create-svelte
+desiXY-ui
+=========
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-## Creating a project
+Presentation
+------------
 
-If you're seeing this, you've probably already done this step. Congrats!
+*desiXY-ui* is a *SvelteKit* app exposing the designs of some *design-libraries* in a UI.
+This UI can be served by a static server (like github-page).
+*desiXY-uis* uses also this UI.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+*desiXU-ui* is part of [parame\_paxApps](https://github.com/charlyoleg2/parame_paxApps).
+*parame\_paxApps* is an helper repository of [parmetrix](https://charlyoleg2.github.io/parametrix/) for generating automatically the frontends (cli, ui and uis) of a design-library.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
 
-## Developing
+Workflow
+--------
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
+*paxApps* is intended to be used bw scripts of a *design-library*.
 
 ```bash
-npm run build
+degit https://github.com/charlyoleg2/parame_paxApps/paxApps paxApps
+patch -p0 -Nt < scr/patchPaxApps.patch
+shx rm -f paxApps/desiXY-cli/package.json.rej paxApps/desiXY-uis/package.json.rej
 ```
 
-You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Requirements
+------------
+
+- [node](https://nodejs.org) > 20.10.0
+- [npm](https://docs.npmjs.com/cli) > 10.1.0
+
+
+Development
+-----------
+
+```bash
+git clone https://github.com/charlyoleg2/parame_paxApps
+cd parame_paxApps
+npm install
+npm run ci
+npm run preview
+```

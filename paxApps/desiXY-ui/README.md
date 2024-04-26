@@ -16,7 +16,7 @@ This UI can be served by a static server (like github-page).
 Workflow
 --------
 
-*paxApps* is intended to be used bw scripts of a *design-library*.
+*paxApps* is intended to be used by scripts of a *design-library*.
 
 ```bash
 degit https://github.com/charlyoleg2/parame_paxApps/paxApps paxApps

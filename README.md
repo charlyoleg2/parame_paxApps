@@ -8,10 +8,10 @@ Presentation
 This is the monorepo that contains the following *javascript* packages:
 
 1. desi01: a simple library of 3D-parts using *geometrix*
-2. paxScr: an helper script for geenrated design-list for desiXY-cli and desiXY-ui
-3. desiXY-cli: the *nodejs* app for presenting your *design library* in a command-line-interface
-4. desiXY-ui: the generic *sveltekit* app for presenting your *design library* in a web-app
-5. desiXY-uis: the *nodejs* app for serving your desiXY-ui locally when wou are offline
+2. paxScr: an helper script generating the lists of designs for desiXY-cli and desiXY-ui
+3. desiXY-cli: the *nodejs* app presenting your *design library* in a command-line-interface
+4. desiXY-ui: the generic *sveltekit* app presenting your *design library* in a web-app
+5. desiXY-uis: the *nodejs* app serving your *desiXY-ui* locally when you are offline
 
 A public instance of *desiXY-ui* is available on that [github-page](https://charlyoleg2.github.io/parame_paxApps/).
 The *code source* is available on [github](https://github.com/charlyoleg2/parame_paxApps).

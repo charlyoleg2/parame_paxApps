@@ -56,7 +56,7 @@
 	@use '$lib/gen_colors.scss';
 
 	:global(body) {
-		font-family: 'Lucida Console', 'Monaco', 'Verdana';
+		font-family: 'Helvetica', 'Arial', 'Verdana';
 		margin: 0;
 		padding: 0;
 		background-color: gen_colors.$colorBg;

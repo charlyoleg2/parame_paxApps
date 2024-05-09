@@ -52,7 +52,7 @@
 	},
 	"dependencies": {
 		"fs-extra": "^11.2.0",
-		"geometrix": "^0.5.37",
+		"geometrix": "^0.5.38",
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {

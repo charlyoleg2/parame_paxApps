@@ -64,7 +64,7 @@ function pGeom(t: number, param: tParamVal, suffix = ''): tGeom {
 			.addSegStrokeR(0, param.H1)
 			.addSegStrokeR(-param.W1, 0)
 			.closeSegStroke();
-		fig1.addMain(ctrRect);
+		fig1.addMainO(ctrRect);
 		// final figure list
 		rGeome.fig = {
 			face1: fig1

@@ -55,8 +55,8 @@
 		"clean": "shx rm -fr build dist node_modules output src/designList.ts src/versions.json"
 	},
 	"dependencies": {
-		"geomcli": "^0.5.44",
-		"geometrix": "^0.5.41"
+		"geomcli": "^0.5.45",
+		"geometrix": "^0.5.42"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^7.1.1",
